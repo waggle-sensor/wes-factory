@@ -36,15 +36,9 @@ spec:
             - name: WAGGLE_PLUGIN_PORT
               value: "$(WES_RABBITMQ_SERVICE_PORT)"
             - name: WAGGLE_PLUGIN_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: wes-rabbitmq-service-account-secret
-                  key: username
+              value: service
             - name: WAGGLE_PLUGIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: wes-rabbitmq-service-account-secret
-                  key: password
+              value: service
             - name: INTERFACES
               value: "wan0,wifi0,modem0"
           envFrom:
