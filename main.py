@@ -6,7 +6,7 @@ import struct
 import time
 from os import getenv
 
-from waggle import plugin
+from waggle.plugin import Plugin
 
 
 def publish_interface_ip(args, intf):
@@ -30,8 +30,9 @@ def publish_interface_ip(args, intf):
                 struct.pack("256s", bytes(intf[:15], "utf-8")),
             )[20:24]
         )
-        plugin.publish("sys.net.ip", ip, meta={"device": intf}, scope=args.scope)
-        logging.info("published interface (%s) IP (%s)", intf, ip)
+        with Plugin() as plugin:
+            plugin.publish("sys.net.ip", ip, meta={"device": intf}, scope=args.scope)
+            logging.info("published interface (%s) IP (%s)", intf, ip)
     except Exception:
         logging.exception("failed to add interface (%s) IP", intf)
 
@@ -60,8 +61,6 @@ def main():
         format="%(asctime)s %(message)s",
         datefmt="%Y/%m/%d %H:%M:%S",
     )
-
-    plugin.init()
 
     logging.info("collecting factory data every %s seconds", args.collect_interval)
     while True:
