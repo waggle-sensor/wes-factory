@@ -17,7 +17,7 @@ spec:
         node-role.kubernetes.io/master: "true"
       hostNetwork: true
       containers:
-        - image: waggle/wes-factory:0.1.0
+        - image: waggle/wes-factory:0.1.1
           name: wes-factory
           resources:
             limits:
